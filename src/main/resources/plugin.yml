@@ -6,7 +6,9 @@ description: ${project.description}
 main: theoni.splitchat.Main
 
 permissions:
-  debugtool.use:
+  splitchat.chat.local:
     default: op
-  debugtool.about:
-    default: true
+  splitchat.chat.global:
+    default: op
+  splitchat.command.spy:
+    default: op

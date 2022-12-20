@@ -1,0 +1,10 @@
+spy:
+  enable: "§aYou have enabled local chat spying."
+  disable: "§cYou have disabled local chat spying."
+
+permission:
+  local: "§cYou do not have permission to write in the local chat."
+  global: "§cYou do not have permission to write in the global chat."
+  command: "§cYou do not have permission to use this command."
+
+ingame: "§cUse this command only in the game."
