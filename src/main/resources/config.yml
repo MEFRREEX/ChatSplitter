@@ -1,0 +1,12 @@
+# Distance at which the local message will be visible
+radius: 100
+
+# The symbol for sending a message to the global chat.
+# Example: "!your message"
+symbol: "!"
+
+# Prefix for local and global chat 
+# Example: "L | MEFRREEXX: your message" 
+prefix:
+  local: "§l§aL §8|§r"
+  global: "§l§cG §8|§r"
