@@ -2,6 +2,8 @@
 A plugin for local and global chat for your Nukkit server!
 
 ![image](https://user-images.githubusercontent.com/83061703/208570855-1c065f53-b62a-46f9-843a-0c2d134a96c1.png)
+# Placeholders:
+```%splitchat_prefix%``` - Use this placeholder in your chat format plugin to display the chat type in a player's message.
 
 # Config:
 ```
