@@ -10,7 +10,7 @@ A plugin for local and global chat for your Nukkit server!
 ```%splitchat_distance%``` - Display the distance to the player who sent the message.
 
 # Config:
-```
+```yml
 # Distance at which the local message will be visible
 radius: 100
 
