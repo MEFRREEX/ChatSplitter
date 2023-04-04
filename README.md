@@ -5,9 +5,9 @@ A plugin for local and global chat for your Nukkit server!
 
 # Placeholders:
 
-```%splitchat_prefix%``` - Use this placeholder in your chat format plugin to display the chat type in a player's message.
+```{splitchat_prefix}``` - Use this placeholder in your chat format plugin to display the chat type in a player's message.
 
-```%splitchat_distance%``` - Display the distance to the player who sent the message.
+```{splitchat_distance}``` - Display the distance to the player who sent the message.
 
 # Config:
 ```yml
