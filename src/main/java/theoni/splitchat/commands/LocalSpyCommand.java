@@ -6,32 +6,23 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.utils.Config;
 import theoni.splitchat.Main;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-
 public class LocalSpyCommand extends Command {
 
-    Main plugin;
-    Config config;
-    Config messages;
-    public static List<Player> spyer;
+    private Main main;
+    private Config messages;
 
-    public LocalSpyCommand(Main plugin) {
+    public LocalSpyCommand(Main main) {
         super("localspy", "Spying on a local chat");
         this.setAliases(new String[]{"lspy"});
 
-        this.plugin = plugin;
-        this.config = plugin.getConfig();
-        this.messages = new Config(new File(plugin.getDataFolder() + "/messages.yml"), Config.YAML);
-        spyer = new ArrayList<Player>();
+        this.messages = new Config(main.getDataFolder() + "/messages.yml", Config.YAML);
+        this.main = main;
     }
 
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
         // Проверка на наличие пермишена
-        if (!sender.hasPermission("splitchat.command.spy")) {
+        if (!testPermission(sender)) {
             sender.sendMessage(messages.getString("permission.command"));
             return false;
         }
@@ -42,12 +33,12 @@ public class LocalSpyCommand extends Command {
         }
 
         // Вкл./выкл. просмотра локальных сообщений
-        if (spyer.contains(sender)) {
-            spyer.remove(sender);
-            sender.sendMessage(messages.getString("spy.disable"));
-        } else {
-            spyer.add((Player) sender);
+        if (!main.spyers.contains(sender)) {
+            main.spyers.add((Player) sender);
             sender.sendMessage(messages.getString("spy.enable"));
+        } else {
+            main.spyers.remove(sender);
+            sender.sendMessage(messages.getString("spy.disable"));
         }
         return false;
     }

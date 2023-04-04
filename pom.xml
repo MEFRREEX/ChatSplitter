@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>theoni.splitchat</groupId>
     <artifactId>splitchat</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
 
     <name>SplitChat</name>
 
@@ -32,7 +32,7 @@
 
     <build>
         <defaultGoal>clean package</defaultGoal>
-        <finalName>${project.name}</finalName>
+        <finalName>${project.name}-${project.version}</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
             <resource>
