@@ -1,6 +1,7 @@
 package com.mefrreex.chatsplitter;
 
 import cn.nukkit.Player;
+import cn.nukkit.plugin.Plugin;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.plugin.PluginManager;
 import com.mefrreex.chatsplitter.command.LocalSpyCommand;
@@ -28,9 +29,10 @@ public class ChatSplitter extends PluginBase {
     }
 
     private void checkChatPlugin() {
-        PluginManager mgr = this.getServer().getPluginManager();
-        if (mgr.getPlugin("LuckChat") != null) {
-            this.getServer().getLogger().warning("If you are using LuckChat for the chat format for the plugin to work properly, go to config.yml and change the ChatAsync parameter to false");
+        PluginManager pluginManager = this.getServer().getPluginManager();
+        Plugin plugin = pluginManager.getPlugin("LuckChat");
+        if (plugin != null && plugin.getConfig().getBoolean("ChatAsync")) {
+            throw new RuntimeException("Using LuckChat requires disabling the ChatAsync parameter in config.yml of the LuckChat plugin");
         }
     }
 }
