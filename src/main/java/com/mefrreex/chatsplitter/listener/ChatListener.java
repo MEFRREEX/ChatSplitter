@@ -1,19 +1,19 @@
-package theoni.splitchat.listener;
+package com.mefrreex.chatsplitter.listener;
 
 import cn.nukkit.Player;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.PlayerChatEvent;
 import cn.nukkit.utils.Config;
-import theoni.splitchat.Main;
+import com.mefrreex.chatsplitter.ChatSplitter;
 
 public class ChatListener implements Listener {
 
-    private Main main;
+    private ChatSplitter main;
     private Config config;
     private Config messages;
 
-    public ChatListener(Main plugin) {
+    public ChatListener(ChatSplitter plugin) {
         this.main = plugin;
         this.config = plugin.getConfig();
         this.messages = new Config(plugin.getDataFolder() + "/messages.yml", Config.YAML);
@@ -70,7 +70,7 @@ public class ChatListener implements Listener {
             }
 
             // Отправка локальных сообщений угроку с вклченным /localspy
-            for (Player spyer : main.spyers) {
+            for (Player spyer : main.getSpyers()) {
                 if (player.distance(spyer) >= config.getInt("radius")) {
                     String spyformat = event.getFormat()
                         .replace("{splitchat_prefix}", config.getString("prefix.spy"))

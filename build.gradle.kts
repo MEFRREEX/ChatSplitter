@@ -4,7 +4,7 @@ plugins {
 
 group = "com.mefrreex.chatsplitter"
 description = "chatsplitter"
-version = "1.4.3"
+version = "2.0.0"
 
 java.sourceCompatibility = JavaVersion.VERSION_17
 

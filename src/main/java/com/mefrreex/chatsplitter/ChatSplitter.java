@@ -1,18 +1,19 @@
-package theoni.splitchat;
+package com.mefrreex.chatsplitter;
 
 import cn.nukkit.Player;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.plugin.PluginManager;
-
-import theoni.splitchat.listener.*;
-import theoni.splitchat.commands.*;
+import com.mefrreex.chatsplitter.command.LocalSpyCommand;
+import com.mefrreex.chatsplitter.listener.ChatListener;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main extends PluginBase {
+@Getter
+public class ChatSplitter extends PluginBase {
 
-    public List<Player> spyers = new ArrayList<Player>();
+    private final List<Player> spyers = new ArrayList<>();
 
     public void onEnable() {
         this.checkChatPlugin();
