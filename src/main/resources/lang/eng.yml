@@ -1,0 +1,9 @@
+# Commands
+command-in-game: "&cThis command can only be used in a game!"
+command-spy-enable: "&aYou have enabled local chat spying"
+command-spy-disable: "&cYou have disabled local chat spying"
+
+# Generic messages
+generic-no-permission-local: "&cYou do not have permission to send messages to the local chat"
+generic-no-permission-global: "&cYou do not have permission to send messages to the global chat"
+

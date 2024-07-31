@@ -1,3 +1,6 @@
+# Available languages: eng (English), rus (Русский)
+language: "eng"
+
 # Distance at which the local message will be visible
 radius: 100
 
@@ -13,5 +16,5 @@ prefix:
   spy: "§l §6SPY §8|§r"
 
 # If enabled, only players with permission can write in local and global chat.
-# Permissions: splitchat.chat.local, splitchat.chat.global
+# Permissions: chatsplitter.chat.local, chatsplitter.chat.global
 enable-permissions: false
