@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "com.mefrreex.chatsplitter"
-version = "2.0.0"
+version = "2.0.1"
 
 java {
     toolchain {
@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
     compileOnly("cn.nukkit:nukkit:1.0-SNAPSHOT")
+    compileOnly("org.jetbrains:annotations:26.0.2")
     compileOnly("org.projectlombok:lombok:1.18.32")
     annotationProcessor("org.projectlombok:lombok:1.18.36")
 }

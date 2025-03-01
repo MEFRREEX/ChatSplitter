@@ -2,18 +2,21 @@
 language: "eng"
 
 # Distance at which the local message will be visible
-radius: 100
+local-chat-radius: 100
 
 # The symbol for sending a message to the global chat.
 # Example: "!your message"
-symbol: "!"
+global-chat-symbol: "!"
 
 # Prefix for local and global chat 
-# Example: "L | MEFRREEXX: your message" 
-prefix:
-  local: "§l §aL §8|§r"
-  global: "§l §cG §8|§r"
-  spy: "§l §6SPY §8|§r"
+# Example: "L | MEFRREEX: your message"
+chat-prefix:
+  local: "&l &aL &8|&r"
+  global: "&l &cG &8|&r"
+  spy: "&l &6SPY &8|&r"
+
+# Message that there are no recipients
+enable-no-recipients-message: true
 
 # If enabled, only players with permission can write in local and global chat.
 # Permissions: chatsplitter.chat.local, chatsplitter.chat.global

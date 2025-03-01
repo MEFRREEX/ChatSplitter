@@ -4,6 +4,6 @@ command-spy-enable: "&aYou have enabled local chat spying"
 command-spy-disable: "&cYou have disabled local chat spying"
 
 # Generic messages
+generic-no-players: "&cThere are no players near you! &fTo send a message to global chat, use &6«!»&f before the message."
 generic-no-permission-local: "&cYou do not have permission to send messages to the local chat"
 generic-no-permission-global: "&cYou do not have permission to send messages to the global chat"
-
