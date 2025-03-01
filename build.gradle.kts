@@ -3,10 +3,13 @@ plugins {
 }
 
 group = "com.mefrreex.chatsplitter"
-description = "chatsplitter"
 version = "2.0.0"
 
-java.sourceCompatibility = JavaVersion.VERSION_17
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 repositories {
     mavenCentral()
@@ -18,7 +21,7 @@ repositories {
 dependencies {
     compileOnly("cn.nukkit:nukkit:1.0-SNAPSHOT")
     compileOnly("org.projectlombok:lombok:1.18.32")
-    annotationProcessor("org.projectlombok:lombok:1.18.32")
+    annotationProcessor("org.projectlombok:lombok:1.18.36")
 }
 
 tasks.withType<JavaCompile> {
@@ -30,7 +33,7 @@ tasks.withType<Javadoc> {
 }
 
 tasks.withType<ProcessResources> {
-    filesMatching("*.yml") {
+    filesMatching("plugin.yml") {
         expand(project.properties)
     }
 }
