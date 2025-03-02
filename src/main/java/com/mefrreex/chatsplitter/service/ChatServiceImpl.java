@@ -26,7 +26,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public ChatChannelType getDefaultChannelType(Player player) {
-        return defaultChannelType.get(player);
+        return defaultChannelType.getOrDefault(player, ChatChannelType.LOCAL);
     }
 
     @Override

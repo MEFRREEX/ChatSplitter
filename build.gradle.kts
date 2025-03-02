@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "com.mefrreex.chatsplitter"
-version = "2.0.1"
+version = "2.0.2"
 
 java {
     toolchain {

@@ -2,7 +2,6 @@ package com.mefrreex.chatsplitter.service;
 
 import cn.nukkit.Player;
 import com.mefrreex.chatsplitter.chat.ChatChannelType;
-import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnmodifiableView;
 
 import java.util.Map;
@@ -11,7 +10,7 @@ public interface ChatService {
 
     @UnmodifiableView Map<Player, ChatChannelType> getDefaultChannelType();
 
-    @Nullable ChatChannelType getDefaultChannelType(Player player);
+    ChatChannelType getDefaultChannelType(Player player);
 
     void setDefaultChannelType(Player player, ChatChannelType chatChannel);
 

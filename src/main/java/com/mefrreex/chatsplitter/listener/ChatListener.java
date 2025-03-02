@@ -4,12 +4,17 @@ import cn.nukkit.Player;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.ConsoleCommandSender;
 import cn.nukkit.event.EventHandler;
+import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.PlayerChatEvent;
+import cn.nukkit.event.player.PlayerQuitEvent;
 import com.mefrreex.chatsplitter.chat.ChatChannelType;
+import com.mefrreex.chatsplitter.chat.ChatPermissions;
+import com.mefrreex.chatsplitter.chat.ChatPlaceholders;
 import com.mefrreex.chatsplitter.service.ChatService;
 import com.mefrreex.chatsplitter.utils.Language;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,30 +22,62 @@ public class ChatListener implements Listener {
 
     private final ChatService chatService;
 
+    private final Set<Player> globalChatSenders = new HashSet<>();
+
     public ChatListener(ChatService chatService) {
         this.chatService = chatService;
     }
 
     @EventHandler
-    public void onPlayerChat(PlayerChatEvent event) {
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        globalChatSenders.remove(event.getPlayer());
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+    public void onPrePlayerChat(PlayerChatEvent event) {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
         ChatChannelType chatChannel = chatService.getDefaultChannelType(player);
 
+        // Check if the message is global
         if (message.startsWith(chatService.getGlobalChatSymbol()) || chatChannel == ChatChannelType.GLOBAL) {
             if (chatChannel == ChatChannelType.LOCAL) {
-                if (message.length() <= 1) {
-                    event.setCancelled();
+                if (message.trim().length() <= 1) {
+                    event.setCancelled(true);
                     return;
                 }
                 event.setMessage(message.substring(1));
             }
-            event.setFormat(event.getFormat().replace("{splitchat_prefix}", chatService.getGlobalChatPrefix()));
+            // We must save the player to the collection, because when handling
+            // onPostPlayerChat we can't check if the message is global.
+            globalChatSenders.add(player);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onPostPlayerChat(PlayerChatEvent event) {
+        Player player = event.getPlayer();
+
+        // Global chat handling
+        if (globalChatSenders.contains(player)) {
+            globalChatSenders.remove(player);
+
+            if (!this.testPermission(player, ChatChannelType.GLOBAL)) {
+                event.setCancelled(true);
+                return;
+            }
+            event.setFormat(event.getFormat().replace(ChatPlaceholders.PREFIX, chatService.getGlobalChatPrefix()));
             return;
         }
 
-        event.setFormat(event.getFormat().replace("{splitchat_prefix}", chatService.getLocalChatPrefix()));
+        // Local chat handling
+        if (!this.testPermission(player, ChatChannelType.LOCAL)) {
+            event.setCancelled();
+            return;
+        }
+
+        event.setFormat(event.getFormat().replace(ChatPlaceholders.PREFIX, chatService.getLocalChatPrefix()));
 
         Set<CommandSender> recipients = event.getRecipients().stream()
                 .filter(recipient -> this.isLocalChatAvailable(player, recipient))
@@ -49,8 +86,7 @@ public class ChatListener implements Listener {
         boolean noneMatch = recipients.stream().noneMatch(recipient ->
                 !player.equals(recipient) &&
                         this.isLocalChatAvailable(player, recipient) &&
-                        !(recipient instanceof ConsoleCommandSender)
-        );
+                        !(recipient instanceof ConsoleCommandSender));
 
         if (chatService.isEnableNoRecipientsMessage() && noneMatch) {
             player.sendMessage(Language.get("generic-no-players", player));
@@ -64,5 +100,16 @@ public class ChatListener implements Listener {
             return player.distance(sender) <= chatService.getLocalChatRadius();
         }
         return recipient instanceof ConsoleCommandSender;
+    }
+
+    private boolean testPermission(Player player, ChatChannelType chatChannel) {
+        if (chatService.isEnablePermissions()) {
+            String permission = chatChannel == ChatChannelType.LOCAL ? ChatPermissions.LOCAL : ChatPermissions.GLOBAL;
+            if (!player.hasPermission(permission)) {
+                player.sendMessage(Language.get("generic-no-permission-" + chatChannel.name().toLowerCase()));
+                return false;
+            }
+        }
+        return true;
     }
 }

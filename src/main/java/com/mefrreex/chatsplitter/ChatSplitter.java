@@ -3,6 +3,7 @@ package com.mefrreex.chatsplitter;
 import cn.nukkit.Player;
 import cn.nukkit.plugin.Plugin;
 import cn.nukkit.plugin.PluginBase;
+import cn.nukkit.utils.TextFormat;
 import com.mefrreex.chatsplitter.command.LocalSpyCommand;
 import com.mefrreex.chatsplitter.listener.ChatListener;
 import com.mefrreex.chatsplitter.service.ChatService;
@@ -34,9 +35,9 @@ public class ChatSplitter extends PluginBase {
         this.chatService = new ChatServiceImpl();
         this.chatService.setLocalChatRadius(this.getConfig().getInt("local-chat-radius"));
         this.chatService.setGlobalChatSymbol(this.getConfig().getString("global-chat-symbol"));
-        this.chatService.setLocalChatPrefix(this.getConfig().getString("chat-prefix.local"));
-        this.chatService.setGlobalChatPrefix(this.getConfig().getString("chat-prefix.global"));
-        this.chatService.setSpyChatPrefix(this.getConfig().getString("chat-prefix.spy"));
+        this.chatService.setLocalChatPrefix(TextFormat.colorize(this.getConfig().getString("chat-prefix.local")));
+        this.chatService.setGlobalChatPrefix(TextFormat.colorize(this.getConfig().getString("chat-prefix.global")));
+        this.chatService.setSpyChatPrefix(TextFormat.colorize(this.getConfig().getString("chat-prefix.spy")));
         this.chatService.setEnableNoRecipientsMessage(this.getConfig().getBoolean("enable-no-recipients-message"));
         this.chatService.setEnablePermissions(this.getConfig().getBoolean("enable-permissions"));
 
