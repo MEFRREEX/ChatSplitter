@@ -4,23 +4,24 @@ import cn.nukkit.Player;
 import cn.nukkit.plugin.Plugin;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.TextFormat;
-import com.mefrreex.chatsplitter.command.LocalSpyCommand;
+import com.mefrreex.chatsplitter.command.impl.SpyCommand;
 import com.mefrreex.chatsplitter.listener.ChatListener;
 import com.mefrreex.chatsplitter.service.ChatService;
 import com.mefrreex.chatsplitter.service.ChatServiceImpl;
 import com.mefrreex.chatsplitter.utils.Language;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 public class ChatSplitter extends PluginBase {
 
     @Getter
     private static ChatSplitter instance;
-    private final List<Player> spyers = new ArrayList<>();
     private ChatService chatService;
+
+    public static final Set<Player> CHAT_SPY = new HashSet<>();
 
     @Override
     public void onLoad() {
@@ -42,7 +43,7 @@ public class ChatSplitter extends PluginBase {
         this.chatService.setEnablePermissions(this.getConfig().getBoolean("enable-permissions"));
 
         this.getServer().getPluginManager().registerEvents(new ChatListener(chatService), this);
-        this.getServer().getCommandMap().register("ChatSplitter", new LocalSpyCommand(this));
+        this.getServer().getCommandMap().register("ChatSplitter", new SpyCommand());
     }
 
     private void checkChatPlugin() {

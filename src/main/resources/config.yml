@@ -21,3 +21,11 @@ enable-no-recipients-message: true
 # If enabled, only players with permission can write in local and global chat.
 # Permissions: chatsplitter.chat.local, chatsplitter.chat.global
 enable-permissions: false
+
+# Plugin command
+commands:
+  # Local spy command
+  spy:
+    name: "localspy"
+    description: "Local chat spy"
+    aliases: ["lspy"]

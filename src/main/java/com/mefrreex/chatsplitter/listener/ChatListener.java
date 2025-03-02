@@ -8,6 +8,7 @@ import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.PlayerChatEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
+import com.mefrreex.chatsplitter.ChatSplitter;
 import com.mefrreex.chatsplitter.chat.ChatChannelType;
 import com.mefrreex.chatsplitter.chat.ChatPermissions;
 import com.mefrreex.chatsplitter.chat.ChatPlaceholders;
@@ -77,7 +78,9 @@ public class ChatListener implements Listener {
             return;
         }
 
-        event.setFormat(event.getFormat().replace(ChatPlaceholders.PREFIX, chatService.getLocalChatPrefix()));
+        String format = event.getFormat();
+
+        event.setFormat(format.replace(ChatPlaceholders.PREFIX, chatService.getLocalChatPrefix()));
 
         Set<CommandSender> recipients = event.getRecipients().stream()
                 .filter(recipient -> this.isLocalChatAvailable(player, recipient))
@@ -93,6 +96,15 @@ public class ChatListener implements Listener {
         }
 
         event.setRecipients(recipients);
+
+        // Send messages to all local chat spies
+        for (Player spy : ChatSplitter.CHAT_SPY) {
+            if (!recipients.contains(spy)) {
+                spy.sendMessage(format
+                        .replace(ChatPlaceholders.PREFIX, chatService.getSpyChatPrefix())
+                        .replace(ChatPlaceholders.DISTANCE, String.valueOf((int) spy.distance(player))));
+            }
+        }
     }
 
     private boolean isLocalChatAvailable(Player sender, CommandSender recipient) {

@@ -1,19 +1,15 @@
-package com.mefrreex.chatsplitter.command;
+package com.mefrreex.chatsplitter.command.impl;
 
 import cn.nukkit.Player;
-import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import com.mefrreex.chatsplitter.ChatSplitter;
+import com.mefrreex.chatsplitter.command.BaseCommand;
 import com.mefrreex.chatsplitter.utils.Language;
 
-public class LocalSpyCommand extends Command {
+public class SpyCommand extends BaseCommand {
 
-    private final ChatSplitter main;
-
-    public LocalSpyCommand(ChatSplitter main) {
-        super("localspy", "Spying on a local chat");
-        this.setAliases(new String[]{"lspy"});
-        this.main = main;
+    public SpyCommand() {
+        super("spy");
     }
 
     @Override
@@ -27,13 +23,13 @@ public class LocalSpyCommand extends Command {
             return false;
         }
 
-        if (!main.getSpyers().contains(sender)) {
-            main.getSpyers().add((Player) sender);
+        if (!ChatSplitter.CHAT_SPY.contains(sender)) {
+            ChatSplitter.CHAT_SPY.add((Player) sender);
             sender.sendMessage(Language.get("command-spy-enable"));
         } else {
-            main.getSpyers().remove(sender);
+            ChatSplitter.CHAT_SPY.remove(sender);
             sender.sendMessage(Language.get("command-spy-disable"));
         }
-        return false;
+        return true;
     }
 }
