@@ -13,7 +13,7 @@ import com.mefrreex.chatsplitter.chat.ChatChannelType;
 import com.mefrreex.chatsplitter.chat.ChatPermissions;
 import com.mefrreex.chatsplitter.chat.ChatPlaceholders;
 import com.mefrreex.chatsplitter.service.ChatService;
-import com.mefrreex.chatsplitter.utils.Language;
+import com.mefrreex.chatsplitter.utils.language.Language;
 
 import java.util.HashSet;
 import java.util.Set;

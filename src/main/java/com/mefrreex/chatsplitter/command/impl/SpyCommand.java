@@ -4,7 +4,7 @@ import cn.nukkit.Player;
 import cn.nukkit.command.CommandSender;
 import com.mefrreex.chatsplitter.ChatSplitter;
 import com.mefrreex.chatsplitter.command.BaseCommand;
-import com.mefrreex.chatsplitter.utils.Language;
+import com.mefrreex.chatsplitter.utils.language.Language;
 
 public class SpyCommand extends BaseCommand {
 
@@ -18,17 +18,17 @@ public class SpyCommand extends BaseCommand {
             return false;
         }
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Language.get("command-in-game"));
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage(Language.get("command-in-game", sender));
             return false;
         }
 
-        if (!ChatSplitter.CHAT_SPY.contains(sender)) {
-            ChatSplitter.CHAT_SPY.add((Player) sender);
-            sender.sendMessage(Language.get("command-spy-enable"));
+        if (!ChatSplitter.CHAT_SPY.contains(player)) {
+            ChatSplitter.CHAT_SPY.add(player);
+            player.sendMessage(Language.get("command-spy-enable", player));
         } else {
-            ChatSplitter.CHAT_SPY.remove(sender);
-            sender.sendMessage(Language.get("command-spy-disable"));
+            ChatSplitter.CHAT_SPY.remove(player);
+            player.sendMessage(Language.get("command-spy-disable", player));
         }
         return true;
     }

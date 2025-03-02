@@ -8,7 +8,8 @@ import com.mefrreex.chatsplitter.command.impl.SpyCommand;
 import com.mefrreex.chatsplitter.listener.ChatListener;
 import com.mefrreex.chatsplitter.service.ChatService;
 import com.mefrreex.chatsplitter.service.ChatServiceImpl;
-import com.mefrreex.chatsplitter.utils.Language;
+import com.mefrreex.chatsplitter.utils.language.Language;
+import com.mefrreex.chatsplitter.utils.language.adapter.impl.TranslationAdapterYaml;
 import lombok.Getter;
 
 import java.util.HashSet;
@@ -30,7 +31,7 @@ public class ChatSplitter extends PluginBase {
     }
 
     public void onEnable() {
-        Language.init(this);
+        Language.init(new TranslationAdapterYaml(this));
         this.checkChatPlugin();
 
         this.chatService = new ChatServiceImpl();
