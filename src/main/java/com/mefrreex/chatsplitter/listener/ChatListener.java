@@ -109,7 +109,8 @@ public class ChatListener implements Listener {
 
     private boolean isLocalChatAvailable(Player sender, CommandSender recipient) {
         if (recipient instanceof Player player) {
-            return player.distance(sender) <= chatService.getLocalChatRadius();
+            return player.getLevel().getName().equals(sender.getLevel().getName()) &&
+                    player.distance(sender) <= chatService.getLocalChatRadius();
         }
         return recipient instanceof ConsoleCommandSender;
     }
