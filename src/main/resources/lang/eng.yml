@@ -1,4 +1,4 @@
-# Commands
+# Command messages
 command-in-game: "&cThis command can only be used in a game!"
 command-spy-enable: "&aYou have enabled local chat spying"
 command-spy-disable: "&cYou have disabled local chat spying"
